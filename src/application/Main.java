@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static utils.ReadFile.readFile;
+import static utils.SaveFile.saveFile;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,15 +30,16 @@ public class Main {
                     email = sc.nextLine();
                     break;
                 case 2:
-                    while (!sc.hasNextInt()) {  // Verificar se a entrada é um número inteiro
+                    while (!sc.hasNextInt()) {
                         System.out.println("Por favor, insira uma idade válida:");
-                        sc.next(); 
+                        sc.next();
                     }
                     age = sc.nextInt();
+                    break;
                 case 3:
-                    while (!sc.hasNextFloat()) {  // Verificar se a entrada é um número de ponto flutuante
+                    while (!sc.hasNextFloat()) {
                         System.out.println("Por favor, insira uma altura válida:");
-                        sc.next();  // Descarta a entrada inválida
+                        sc.next();
                     }
                     height = sc.nextFloat();
                     break;
@@ -51,7 +53,8 @@ public class Main {
 
         for (Client c:
              clients) {
-            System.out.println(c);
+            saveFile(c, clients);
         }
+
     }
 }

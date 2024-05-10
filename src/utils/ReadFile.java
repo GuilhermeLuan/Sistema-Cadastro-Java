@@ -13,8 +13,6 @@ public class ReadFile {
             while ((line = bufferedReader.readLine()) != null){
                 listQuestions.add(line);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
