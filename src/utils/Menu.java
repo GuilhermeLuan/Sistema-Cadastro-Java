@@ -3,24 +3,37 @@ package utils;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static utils.SaveFile.saveFile;
+import static utils.FileUtil.removeLineFile;
+import static utils.FileUtil.saveFile;
 
 public class Menu {
 
-    private final ArrayList<String> listQuestions = new ArrayList<>();
-    static final Scanner sc = new Scanner(System.in);
+    private static final ArrayList<String> listQuestions = new ArrayList<>();
     public static void showMenu(){
         System.out.println(
-                "1 - Cadastrar o usuário\n" +
-                "2 - Listar todos usuários cadastrados\n" +
-                "3 - Cadastar nova pergunta no formulário\n" +
-                "4 - Deletar perguntas no formulário\n" +
-                "5 - Pesquisar usuário por nome ou idade ou email\n" +
-                "6 - Sair do Menu\n"
+                """
+                        1 - Cadastrar o usuário
+                        2 - Listar todos usuários cadastrados
+                        3 - Cadastar nova pergunta no formulário
+                        4 - Deletar perguntas no formulário
+                        5 - Pesquisar usuário por nome ou idade ou email
+                        6 - Sair do Menu
+                        """
         );
     }
-    public static void cadastrarNovaPergunta(){
-        String newQuestion = sc.nextLine();
-        saveFile();
+    public static void addQuestionFile(String newQuestion){
+        saveFile("src/formulario.txt", newQuestion, true);
+    }
+    
+    public static void removeQuestion(int indexQuestion){
+        if(indexQuestion < 4){
+            System.out.println("Não é possível apagar as 4 primeiras perguntas");
+            return;
+        }
+
+        for (int i = 0; i < listQuestions.size(); i++) {
+            listQuestions.remove(indexQuestion - 1);
+        }
+        removeLineFile("src/formulario.txt", indexQuestion);
     }
 }

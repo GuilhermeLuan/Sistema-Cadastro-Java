@@ -5,10 +5,9 @@ import entities.Client;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static utils.Menu.showMenu;
-import static utils.ReadFile.readFile;
-import static utils.SaveFile.saveFile;
-import static utils.SaveFile.saveFileClient;
+import static utils.Menu.*;
+import static utils.FileUtil.readFile;
+import static utils.FileUtil.saveFile;
 
 public class Main {
     public static void main(String[] args) {
@@ -57,16 +56,38 @@ public class Main {
                     client = new Client(name, email, age, height);
                     clients.add(client);
                 break;
+
                 case 2:
                     for (int i = 0; i < clients.size(); i++) {
                         System.out.println(i + 1 + " - " + clients.get(i).getName());
                     }
+                    break;
+                case 3:
+                    System.out.println("Qual pergunta deseja adicionar no arquivo?");
+                    sc.nextLine();
+                    String newQuestion = sc.nextLine();
+                    newQuestion = listQuestions.size() + 1 + " - " + newQuestion;
+                    addQuestionFile(newQuestion);
+                    break;
+                case 4:
+                    System.out.println("Qual número da pergunta que deseja excluir?");
+                    int indexQuestion = sc.nextInt();
+                    removeQuestion(indexQuestion);
+                    break;
+                case 5:
+
+
+                    break;
             }
 
             for (Client c: clients) {
-                String filePath = clients.indexOf(client) + 1 + "-" + client.getName().toUpperCase().replaceAll(" ", "") + ".txt";
+                String filePath = clients.indexOf(client) + 1 + "-" +
+                        client
+                                .getName()
+                                .toUpperCase()
+                                .replaceAll(" ", "") + ".txt";
 
-                saveFile(filePath, client);
+                saveFile(filePath, client, false);
             }
 
         } while (input != 6);
