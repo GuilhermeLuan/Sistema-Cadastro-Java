@@ -6,6 +6,9 @@ public class Client {
     private int age;
     private float height;
 
+    public Client() {
+    }
+
     public Client(String name, String email, int age, float height) {
         this.name = name;
         this.email = email;
