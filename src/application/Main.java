@@ -1,10 +1,16 @@
 package application;
 
 import entities.Client;
+import entities.exceptions.AgeException;
+import entities.exceptions.EmailException;
+import entities.exceptions.HeightException;
+import entities.exceptions.NameException;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static entities.validate.Validate.*;
 import static utils.Menu.*;
 import static utils.FileUtil.readFile;
 import static utils.FileUtil.saveFile;
@@ -14,7 +20,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> listQuestions = new ArrayList<>();
         ArrayList<Client> clients = new ArrayList<>();
-        Client client = new Client();
+        Client client;
         readFile("src/formulario.txt", listQuestions);
 
         int input;
@@ -26,34 +32,76 @@ public class Main {
                 case 1:
                     String name = null, email = null, newQuestionInput = null;
                     int age = 0;
-                    float height = 0;
+                    String height = null;
                     sc.nextLine();
                     for (int i = 0; i < listQuestions.size(); i++) {
                         System.out.println(listQuestions.get(i));
                         switch (i){
                             case 0:
-                                name = sc.nextLine();
+                                boolean validName = false;
+                                while (!validName){
+                                    try {
+                                        name = sc.nextLine();
+                                        validateName(name);
+                                        validName = true;
+                                    } catch (NameException e) {
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Insira o nome novamente:");
+                                    }
+                                }
                                 break;
                             case 1:
-                                email = sc.nextLine();
+                                boolean validEmail = false;
+                                while (!validEmail){
+                                    try{
+                                        email = sc.nextLine();
+                                        validateEmail(email);
+                                        validEmail = true;
+                                    } catch (EmailException e){
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Insira o email novamente:");
+                                    }
+                                }
                                 break;
                             case 2:
-                                while (!sc.hasNextInt()) {
-                                    System.out.println("Por favor, insira uma idade válida:");
-                                    sc.next();
+                                boolean validAge = false;
+                                while (!validAge){
+                                    try {
+                                        age = sc.nextInt();
+                                        validateAge(age);
+                                        validAge = true;
+                                    } catch (AgeException e){
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Insira o idade novamente: ");
+                                        sc.nextLine();
+                                    } catch (InputMismatchException e){
+                                        System.out.println("A idade pode ser apenas numeros.");
+                                        System.out.println("Insira o nome novamente: ");
+                                        sc.nextLine();
+
+                                    }
                                 }
-                                age = sc.nextInt();
                                 break;
                             case 3:
-                                while (!sc.hasNextFloat()) {
-                                    System.out.println("Por favor, insira uma altura válida:");
-                                    sc.next();
+                                boolean validHeight = false;
+                                while (!validHeight){
+                                    try {
+                                        height = sc.next();
+                                        validateHeight(height);
+                                        validHeight = true;
+                                    } catch (HeightException e){
+                                        System.out.println(e.getMessage());
+                                        System.out.println("Insira o altura novamente: ");
+                                    } catch (InputMismatchException e){
+                                        System.out.println("A altura pode ser apenas numeros.");
+                                        System.out.println("Insira o nome novamente: ");
+                                    }
                                 }
-                                height = sc.nextFloat();
                                 break;
                             default:
                                 sc.nextLine();
-                                newQuestionInput = sc.nextLine();
+                                newQuestionInput = sc.nextLine().trim();
+                                System.out.println(newQuestionInput);
                                 break;
                         }
                     }
@@ -98,13 +146,11 @@ public class Main {
         } while (input != 6);
 
         for (Client c: clients) {
-            String filePath = clients.indexOf(client) + 1 + "-" +
-                    client
+            String filePath = clients.indexOf(c) + 1 + "-" + c
                             .getName()
                             .toUpperCase()
                             .replaceAll(" ", "") + ".txt";
-
-            saveFile(filePath, client, false);
+            saveFile(filePath, c, false);
         }
     }
 }

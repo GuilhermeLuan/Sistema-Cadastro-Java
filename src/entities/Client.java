@@ -6,13 +6,13 @@ public class Client {
     private String name;
     private String email;
     private int age;
-    private float height;
+    private String height;
     private ArrayList<String> newQuestionResponses = new ArrayList<>();
 
     public Client() {
     }
 
-    public Client(String name, String email, int age, float height) {
+    public Client(String name, String email, int age, String height) {
         this.name = name;
         this.email = email;
         this.age = age;
@@ -44,11 +44,11 @@ public class Client {
         this.age = age;
     }
 
-    public float getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
@@ -70,10 +70,10 @@ public class Client {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append(" ");
-        sb.append(email).append(" ");
-        sb.append(age).append(" ");
-        sb.append(height).append(" ");
+        sb.append(getName()).append(" ");
+        sb.append(getEmail()).append(" ");
+        sb.append(getAge()).append(" ");
+        sb.append(getHeight()).append(" ");
 
         if(!newQuestionResponses.isEmpty()){
             for (String item : newQuestionResponses) {
@@ -81,6 +81,9 @@ public class Client {
             }
         }
 
+        for(String response: newQuestionResponses){
+            System.out.println(response);
+        }
 
         return sb.toString();
     }
