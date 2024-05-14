@@ -1,10 +1,13 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Client {
     private String name;
     private String email;
     private int age;
     private float height;
+    private ArrayList<String> newQuestionResponses = new ArrayList<>();
 
     public Client() {
     }
@@ -16,7 +19,8 @@ public class Client {
         this.height = height;
     }
 
-    public String getName() {
+
+    public String  getName() {
         return name;
     }
 
@@ -48,8 +52,36 @@ public class Client {
         this.height = height;
     }
 
+    public void addResponse(String response){
+        newQuestionResponses.add(response);
+    }
+
+    public static ArrayList<Client> searchClient(ArrayList<Client> clients, String search){
+        ArrayList<Client> resultList = new ArrayList<>();
+
+        for (Client c: clients) {
+            if(c.getName().contains(search) || c.getEmail().contains(search)){
+                resultList.add(c);
+            }
+        }
+
+        return resultList;
+    }
     @Override
     public String toString() {
-        return getName() + "\n" + getEmail() + "\n" + getAge() + "\n" + getHeight();
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(" ");
+        sb.append(email).append(" ");
+        sb.append(age).append(" ");
+        sb.append(height).append(" ");
+
+        if(!newQuestionResponses.isEmpty()){
+            for (String item : newQuestionResponses) {
+                sb.append(item).append(" ");
+            }
+        }
+
+
+        return sb.toString();
     }
 }

@@ -1,14 +1,11 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static utils.FileUtil.removeLineFile;
 import static utils.FileUtil.saveFile;
 
 public class Menu {
-
-    private static final ArrayList<String> listQuestions = new ArrayList<>();
     public static void showMenu(){
         System.out.println(
                 """
@@ -25,7 +22,7 @@ public class Menu {
         saveFile("src/formulario.txt", newQuestion, true);
     }
     
-    public static void removeQuestion(int indexQuestion){
+    public static void removeQuestion(int indexQuestion, ArrayList<String> listQuestions){
         if(indexQuestion < 4){
             System.out.println("Não é possível apagar as 4 primeiras perguntas");
             return;
@@ -36,4 +33,5 @@ public class Menu {
         }
         removeLineFile("src/formulario.txt", indexQuestion);
     }
+
 }
