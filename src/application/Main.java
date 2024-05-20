@@ -18,18 +18,24 @@ import static utils.Menu.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> listQuestions = new ArrayList<>();
+
         ArrayList<Client> clients = new ArrayList<>();
         Client client;
-        readFile("src/formulario.txt", listQuestions);
+        
 
         int input;
         do{
+            ArrayList<String> listQuestions = new ArrayList<>();
+            ArrayList<String> listNewAnswers = new ArrayList<>();
+            readFile("src/formulario.txt", listQuestions);
             showMenu();
             input = sc.nextInt();
 
             switch (input){
+
                 case 1:
+                    listQuestions = new ArrayList<>();
+                    readFile("src/formulario.txt", listQuestions);
                     String name = null, email = null, newQuestionInput = null;
                     int age = 0;
                     String height = null;
@@ -99,7 +105,7 @@ public class Main {
                                 }
                                 break;
                             default:
-                                //System.out.println(i);
+                                System.out.println(i);
                                 if (i == 4) sc.nextLine();
                                 newQuestionInput = sc.nextLine().trim();
                                 listNewAnswers.add(newQuestionInput);
