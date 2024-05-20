@@ -99,14 +99,18 @@ public class Main {
                                 }
                                 break;
                             default:
-                                sc.nextLine();
+                                //System.out.println(i);
+                                if (i == 4) sc.nextLine();
                                 newQuestionInput = sc.nextLine().trim();
+                                listNewAnswers.add(newQuestionInput);
                                 break;
                         }
                     }
                     client = new Client(name, email, age, height);
-                    if(newQuestionInput != null){
-                        client.addResponse(newQuestionInput);
+                    if(!listNewAnswers.isEmpty()){
+                        for (String listNewAnswer : listNewAnswers) {
+                            client.addResponse(listNewAnswer);
+                        }
                     }
                     registerUser(client, clients);
                 break;

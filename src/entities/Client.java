@@ -94,10 +94,6 @@ public class Client {
             }
         }
 
-        for(String response: newQuestionResponses){
-            System.out.println(response);
-        }
-
         return sb.toString();
     }
 }
