@@ -2,6 +2,7 @@ package utils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtil {
     public static void readFile(String filePath, ArrayList<String> listQuestions){
@@ -37,7 +38,7 @@ public class FileUtil {
 
             while ((currentLine = reader.readLine()) != null){
                 if (lineNmber != toRemove){
-                    writer.write(currentLine + System.getProperty("line.separator"));
+                    writer.write(currentLine + System.lineSeparator());
                 }
                 lineNmber++;
             }
@@ -51,5 +52,42 @@ public class FileUtil {
             e.printStackTrace();
         }
 
+    }
+
+    public static void remove(String filePath, int lineNumberToRemove) {
+        List<String> lines = new ArrayList<>();
+
+        // Read the file and store lines in the list, adjusting numbers as needed
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int currentLine = 0;
+            while ((line = br.readLine()) != null) {
+                currentLine++;
+                if (currentLine != lineNumberToRemove) {
+                    if (currentLine > lineNumberToRemove) {
+                        // Adjust the question number
+                        int questionNumberEndIndex = line.indexOf(" - ");
+                        if (questionNumberEndIndex != -1) {
+                            int questionNumber = Integer.parseInt(line.substring(0, questionNumberEndIndex));
+                            questionNumber--;
+                            line = questionNumber + line.substring(questionNumberEndIndex);
+                        }
+                    }
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Write the lines back to the file, excluding the removed line
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

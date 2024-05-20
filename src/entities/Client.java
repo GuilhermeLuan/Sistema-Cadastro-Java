@@ -67,6 +67,19 @@ public class Client {
 
         return resultList;
     }
+
+    public static void registerUser(Client c, ArrayList<Client> clients){
+        clients.add(c);
+    }
+
+    public static boolean verifyEmail(ArrayList<Client> clients, String email){
+        for (Client c: clients) {
+            if(c.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

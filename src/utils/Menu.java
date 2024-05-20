@@ -2,8 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-import static utils.FileUtil.removeLineFile;
-import static utils.FileUtil.saveFile;
+import static utils.FileUtil.*;
 
 public class Menu {
     public static void showMenu(){
@@ -27,11 +26,9 @@ public class Menu {
             System.out.println("Não é possível apagar as 4 primeiras perguntas");
             return;
         }
+        listQuestions.remove(indexQuestion - 1);
 
-        for (int i = 0; i < listQuestions.size(); i++) {
-            listQuestions.remove(indexQuestion - 1);
-        }
-        removeLineFile("src/formulario.txt", indexQuestion);
+        remove("src/formulario.txt", indexQuestion);
     }
 
 }

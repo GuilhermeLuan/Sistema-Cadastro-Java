@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static entities.Client.registerUser;
 import static entities.validate.Validate.*;
+import static utils.FileUtil.*;
 import static utils.Menu.*;
-import static utils.FileUtil.readFile;
-import static utils.FileUtil.saveFile;
 
 public class Main {
     public static void main(String[] args) {
@@ -55,7 +55,7 @@ public class Main {
                                 while (!validEmail){
                                     try{
                                         email = sc.nextLine();
-                                        validateEmail(email);
+                                        validateEmail(clients, email);
                                         validEmail = true;
                                     } catch (EmailException e){
                                         System.out.println(e.getMessage());
@@ -101,7 +101,6 @@ public class Main {
                             default:
                                 sc.nextLine();
                                 newQuestionInput = sc.nextLine().trim();
-                                System.out.println(newQuestionInput);
                                 break;
                         }
                     }
@@ -109,7 +108,7 @@ public class Main {
                     if(newQuestionInput != null){
                         client.addResponse(newQuestionInput);
                     }
-                    clients.add(client);
+                    registerUser(client, clients);
                 break;
 
                 case 2:
@@ -129,6 +128,7 @@ public class Main {
                     System.out.println("Qual número da pergunta que deseja excluir?");
                     int indexQuestion = sc.nextInt();
                     removeQuestion(indexQuestion, listQuestions);
+
                     break;
                 case 5:
                     System.out.println("Pesquisar usuário por nome ou idade ou email, nome ou email: ");
