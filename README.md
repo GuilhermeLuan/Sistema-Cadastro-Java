@@ -24,38 +24,7 @@ Este projeto é um sistema de registro de usuários em Java. Ele permite que usu
 - **Pacote `entities`**: Contém a classe `Client` e exceções personalizadas (`AgeException`, `EmailException`, `HeightException`, `NameException`).
 - **Pacote `entities.exceptions`**: Define exceções para validação dos dados dos usuários.
 - **Pacote `utils`**: Inclui utilitários para manipulação de arquivos (`FileUtil`) e exibição de menus (`Menu`).
-
-## Instalação
-
-1. Clone o repositório:
-    
-    ```bash
-    git clone https://github.com/GuilhermeLuan/Sistema-Cadastro-Java
-    
-    ```
-    
-2. Navegue até o diretório do projeto:
-    
-    ```bash
-    cd Sistema-Cadastro-Java
-    
-    ```
-    
-3. Compile o projeto:
-    
-    ```bash
-    javac -d bin src/**/*.java
-    
-    ```
-    
-4. Execute o programa:
-    
-    ```bash
-    java -cp bin application.Main
-    
-    ```
-    
-
+- 
 ## Uso
 
 Ao iniciar o programa, você verá um menu com as seguintes opções:
